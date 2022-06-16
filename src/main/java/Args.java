@@ -20,21 +20,24 @@ public class Args {
 
     private static Object parseOption(List<String> arguments, Parameter parameter) {
         Option option = parameter.getAnnotation(Option.class);
-        OptionParser parser = null;
-        if (parameter.getType() == int.class) {
-            parser = new IntegerParser();
+        Class<?> type = parameter.getType();
+        return getOptionParser(type).parse(arguments, option);
+    }
 
+    private static OptionParser getOptionParser(Class<?> type) {
+        OptionParser parser = null;
+        if (type == int.class) {
+            parser = new IntegerParser();
         }
 
-        if (parameter.getType() == boolean.class) {
+        if (type == boolean.class) {
             parser = new BooleanParser();
         }
 
-        if (parameter.getType() == String.class) {
+        if (type == String.class) {
             parser = new StringParser();
         }
-
-        return parser.parse(arguments, option);
+        return parser;
     }
 
     interface OptionParser {
