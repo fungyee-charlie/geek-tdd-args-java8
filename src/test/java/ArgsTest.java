@@ -20,6 +20,13 @@ public class ArgsTest {
     }
 
     @Test
+    void should_parse_integer_option() {
+        IntegerOption option = Args.parse(IntegerOption.class, "-p", "8080");
+
+        assertEquals(8080, option.getPort());
+    }
+
+    @Test
     @Disabled
     void should_parse_multiple_option_1() {
         Options options = Args.parse(Options.class, "-l", "-p", "8080", "-d", "/usr/logs");
