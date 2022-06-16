@@ -1,10 +1,23 @@
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ArgsTest {
+
+    @Test
+    void should_parse_boolean_option_given_logging_is_true() {
+        BooleanOption option = Args.parse(BooleanOption.class, "-l");
+
+        assertTrue(option.getLogging());
+    }
+
+    @Test
+    void should_parse_boolean_option_logging_is_true() {
+        BooleanOption option = Args.parse(BooleanOption.class, "");
+
+        assertFalse(option.getLogging());
+    }
 
     @Test
     @Disabled
