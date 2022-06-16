@@ -37,15 +37,15 @@ public class Args {
     }
 
     private static Object parseString(List<String> arguments, Option option) {
-        return arguments.get(arguments.indexOf("-" + option.value()) + 1);
+        return new StringParser().parse(arguments, option);
     }
 
     private static Object parseBoolean(List<String> arguments, Option option) {
-        return arguments.contains("-" + option.value());
+        return new BooleanParser().parse(arguments, option);
     }
 
     private static Object parseInteger(List<String> arguments, Option option) {
-        return Integer.valueOf(arguments.get(arguments.indexOf("-" + option.value()) + 1));
+        return new IntegerParser().parse(arguments, option);
     }
 
     interface OptionParser {
