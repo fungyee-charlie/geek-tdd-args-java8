@@ -56,21 +56,21 @@ public class Args {
 
         @Override
         public Object parse(List<String> arguments, Option option) {
-            return parseBoolean(arguments, option);
+            return arguments.contains("-" + option.value());
         }
     }
 
     private static class IntegerParser implements OptionParser {
         @Override
         public Object parse(List<String> arguments, Option option) {
-            return parseInteger(arguments, option);
+            return Integer.valueOf(arguments.get(arguments.indexOf("-" + option.value()) + 1));
         }
     }
 
     private static class StringParser implements OptionParser {
         @Override
         public Object parse(List<String> arguments, Option option) {
-            return parseString(arguments, option);
+            return arguments.get(arguments.indexOf("-" + option.value()) + 1);
         }
     }
 
