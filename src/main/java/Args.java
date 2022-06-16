@@ -36,31 +36,5 @@ public class Args {
             int.class, new IntegerParser(),
             String.class, new StringParser());
 
-    interface OptionParser {
-        Object parse(List<String> arguments, Option option);
-    }
-
-    private static class BooleanParser implements OptionParser {
-
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            return arguments.contains("-" + option.value());
-        }
-    }
-
-    private static class IntegerParser implements OptionParser {
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            return Integer.valueOf(arguments.get(arguments.indexOf("-" + option.value()) + 1));
-        }
-    }
-
-    private static class StringParser implements OptionParser {
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            return arguments.get(arguments.indexOf("-" + option.value()) + 1);
-        }
-    }
-
 
 }
