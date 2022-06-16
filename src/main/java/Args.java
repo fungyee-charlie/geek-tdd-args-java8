@@ -23,29 +23,17 @@ public class Args {
         Option option = parameter.getAnnotation(Option.class);
 
         if (parameter.getType() == int.class) {
-            value = parseInteger(arguments, option);
+            value = new IntegerParser().parse(arguments, option);
         }
 
         if (parameter.getType() == boolean.class) {
-            value = parseBoolean(arguments, option);
+            value = new BooleanParser().parse(arguments, option);
         }
 
         if (parameter.getType() == String.class) {
-            value = parseString(arguments, option);
+            value = new StringParser().parse(arguments, option);
         }
         return value;
-    }
-
-    private static Object parseString(List<String> arguments, Option option) {
-        return new StringParser().parse(arguments, option);
-    }
-
-    private static Object parseBoolean(List<String> arguments, Option option) {
-        return new BooleanParser().parse(arguments, option);
-    }
-
-    private static Object parseInteger(List<String> arguments, Option option) {
-        return new IntegerParser().parse(arguments, option);
     }
 
     interface OptionParser {
