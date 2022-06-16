@@ -34,13 +34,12 @@ public class ArgsTest {
     }
 
     @Test
-    @Disabled
     void should_parse_multiple_option_1() {
-        Options options = Args.parse(Options.class, "-l", "-p", "8080", "-d", "/usr/logs");
+        MultiOptions options = Args.parse(MultiOptions.class, "-l", "-p", "8080", "-d", "/usr/logs");
 
         assertTrue(options.getLogging());
         assertEquals(8080, options.getPort());
-        assertEquals("usr/logs", options.getDirectory());
+        assertEquals("/usr/logs", options.getDirectory());
     }
 
 

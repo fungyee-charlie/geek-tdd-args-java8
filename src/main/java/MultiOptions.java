@@ -1,4 +1,4 @@
-public class Options {
+public class MultiOptions {
     boolean logging;
 
     int port;
@@ -15,5 +15,11 @@ public class Options {
 
     public String getDirectory() {
         return directory;
+    }
+
+    public MultiOptions(@Option("l") boolean logging, @Option("p")int port, @Option("d")String directory) {
+        this.logging = logging;
+        this.port = port;
+        this.directory = directory;
     }
 }
