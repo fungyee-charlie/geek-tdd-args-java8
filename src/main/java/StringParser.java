@@ -1,6 +1,10 @@
 class StringParser extends IntegerParser {
 
-    public StringParser() {
+    private StringParser() {
         super(String::valueOf);
+    }
+
+    public static OptionParser createStringParser() {
+        return new IntegerParser(String::valueOf);
     }
 }
