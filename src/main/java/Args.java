@@ -16,8 +16,13 @@ public class Args {
             if (parameter.getType() == int.class) {
                 value = Integer.valueOf(arguments.get(arguments.indexOf("-" + option.value()) + 1));
             }
+
             if (parameter.getType() == boolean.class) {
                 value = arguments.contains("-" + option.value());
+            }
+
+            if (parameter.getType() == String.class) {
+                value = arguments.get(arguments.indexOf("-" + option.value()) + 1);
             }
             return (T) constructor.newInstance(value);
         } catch (Exception e) {

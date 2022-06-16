@@ -13,7 +13,7 @@ public class ArgsTest {
     }
 
     @Test
-    void should_parse_boolean_option_logging_is_true() {
+    void should_parse_integer_option_logging_is_true() {
         BooleanOption option = Args.parse(BooleanOption.class, "");
 
         assertFalse(option.getLogging());
@@ -24,6 +24,13 @@ public class ArgsTest {
         IntegerOption option = Args.parse(IntegerOption.class, "-p", "8080");
 
         assertEquals(8080, option.getPort());
+    }
+
+    @Test
+    void should_parse_string_option() {
+        StringOption option = Args.parse(StringOption.class, "-d", "/usr/logs");
+
+        assertEquals("/usr/logs", option.getDirectory());
     }
 
     @Test
