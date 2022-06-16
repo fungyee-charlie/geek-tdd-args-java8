@@ -1,7 +1,10 @@
+import com.google.common.collect.ImmutableMap;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Args {
     public static <T> T parse(Class<T> optionsClass, String... args) {
@@ -25,20 +28,13 @@ public class Args {
     }
 
     private static OptionParser getOptionParser(Class<?> type) {
-        OptionParser parser = null;
-        if (type == int.class) {
-            parser = new IntegerParser();
-        }
-
-        if (type == boolean.class) {
-            parser = new BooleanParser();
-        }
-
-        if (type == String.class) {
-            parser = new StringParser();
-        }
-        return parser;
+        return PARSERS.get(type);
     }
+
+    private static final Map<Class<?>, OptionParser> PARSERS = ImmutableMap.of(
+            boolean.class, new BooleanParser(),
+            int.class, new IntegerParser(),
+            String.class, new StringParser());
 
     interface OptionParser {
         Object parse(List<String> arguments, Option option);
