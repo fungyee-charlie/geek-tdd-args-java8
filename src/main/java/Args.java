@@ -5,6 +5,7 @@ import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public class Args {
     public static <T> T parse(Class<T> optionsClass, String... args) {
@@ -34,7 +35,7 @@ public class Args {
     private static final Map<Class<?>, OptionParser> PARSERS = ImmutableMap.of(
             boolean.class, new BooleanParser(),
             int.class, new SingleValueOptionParser<>(Integer::valueOf),
-            String.class, new SingleValueOptionParser<>(String::valueOf));
+            String.class, new SingleValueOptionParser<>(Function.identity()));
 
 
 }
