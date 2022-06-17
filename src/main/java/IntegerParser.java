@@ -3,13 +3,14 @@ import java.util.function.Function;
 
 class IntegerParser implements OptionParser {
 
-    private Function<String, Object> valueParser = Integer::valueOf;
-
-    public IntegerParser() {
-    }
+    private Function<String, Object> valueParser;
 
     public IntegerParser(Function<String, Object> valueParser) {
         this.valueParser = valueParser;
+    }
+
+    public static OptionParser createIntegerParser() {
+        return new IntegerParser(Integer::valueOf);
     }
 
     @Override

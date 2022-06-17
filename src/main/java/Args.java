@@ -33,7 +33,7 @@ public class Args {
 
     private static final Map<Class<?>, OptionParser> PARSERS = ImmutableMap.of(
             boolean.class, new BooleanParser(),
-            int.class, new IntegerParser(),
+            int.class, IntegerParser.createIntegerParser(),
             String.class, new IntegerParser(String::valueOf));
 
 
