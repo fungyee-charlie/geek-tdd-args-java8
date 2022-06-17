@@ -13,10 +13,7 @@ class IntegerParser implements OptionParser {
     public Object parse(List<String> arguments, Option option) {
         int index = arguments.indexOf("-" + option.value()) + 1;
         String value = arguments.get(index);
-        return parseValue(value);
-    }
-
-    protected Object parseValue(String value) {
         return valueParser.apply(value);
     }
+
 }
