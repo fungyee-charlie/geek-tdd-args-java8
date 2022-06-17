@@ -1,11 +1,11 @@
 import java.util.List;
 import java.util.function.Function;
 
-class IntegerParser implements OptionParser {
+class SingleValueOptionParser implements OptionParser {
 
     private Function<String, Object> valueParser;
 
-    public IntegerParser(Function<String, Object> valueParser) {
+    public SingleValueOptionParser(Function<String, Object> valueParser) {
         this.valueParser = valueParser;
     }
 
