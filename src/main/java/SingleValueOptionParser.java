@@ -1,16 +1,16 @@
 import java.util.List;
 import java.util.function.Function;
 
-class SingleValueOptionParser implements OptionParser {
+class SingleValueOptionParser<T> implements OptionParser {
 
-    private Function<String, Object> valueParser;
+    private Function<String, T> valueParser;
 
-    public SingleValueOptionParser(Function<String, Object> valueParser) {
+    public SingleValueOptionParser(Function<String, T> valueParser) {
         this.valueParser = valueParser;
     }
 
     @Override
-    public Object parse(List<String> arguments, Option option) {
+    public T parse(List<String> arguments, Option option) {
         int index = arguments.indexOf("-" + option.value()) + 1;
         String value = arguments.get(index);
         return valueParser.apply(value);
