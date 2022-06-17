@@ -1,3 +1,0 @@
-class StringParser extends IntegerParser {
-
-}
