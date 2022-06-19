@@ -13,8 +13,8 @@ public class ArgsTest {
     }
 
     @Test
-    void should_parse_integer_option_logging_is_true() {
-        BooleanOption option = Args.parse(BooleanOption.class, "");
+    void should_parse_boolean_option_logging_is_false() {
+        BooleanOption option = Args.parse(BooleanOption.class);
 
         assertFalse(option.getLogging());
     }

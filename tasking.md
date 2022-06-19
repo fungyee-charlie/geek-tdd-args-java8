@@ -18,4 +18,20 @@
 4. unhappy path
     - extra value
 
+## 2. second tasking
+选择更小的粒度进行测试
+BooleanOptionParserTest:
+// sad path:
+// TODO: -bool -l t / -l t f
+// default:
+// TODO: - bool : false
+
+SingleValuedOptionParserTest:
+// sad path:
+// TODO: - int -p/ -p 8080 8081
+// TODO: - string -d/ -d /usr/logs /usr/vars
+// default value:
+// TODO: -int :0
+// TODO: - string ""
+
 
