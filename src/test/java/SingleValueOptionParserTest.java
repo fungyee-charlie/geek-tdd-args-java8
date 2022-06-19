@@ -25,7 +25,7 @@ class SingleValueOptionParserTest {
     @Test
     void should_not_accept_extra_argument_when_parse_single_value_option() {
         TooManyArgumentException e = assertThrows(TooManyArgumentException.class,
-                () -> new SingleValueOptionParser<>(Integer::valueOf).parse(asList("-p", "8080", "8081"), option("p")));
+                () -> new SingleValueOptionParser<>(0, Integer::valueOf).parse(asList("-p", "8080", "8081"), option("p")));
         assertEquals("p", e.getOption());
     }
 
@@ -34,8 +34,15 @@ class SingleValueOptionParserTest {
     @ValueSource(strings = {"-p -l", "-p"})
     void should_not_accept_insufficient_argument_when_parse_single_value_option(String arguments) {
         InsufficientArgumentException e = assertThrows(InsufficientArgumentException.class,
-                () -> new SingleValueOptionParser<>(Integer::valueOf)
+                () -> new SingleValueOptionParser<>(0, Integer::valueOf)
                         .parse(asList(arguments.split(" ")), option("p")));
         assertEquals("p", e.getOption());
+    }
+
+    @Test
+    void should_set_default_value_when_parse_single_value_option() {
+        Integer integer = new SingleValueOptionParser<>(0, Integer::valueOf)
+                .parse(asList(), option("p"));
+        assertEquals(0, integer);
     }
 }

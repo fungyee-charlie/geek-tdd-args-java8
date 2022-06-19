@@ -4,14 +4,18 @@ import java.util.function.Function;
 class SingleValueOptionParser<T> implements OptionParser<T> {
 
     private Function<String, T> valueParser;
+    private T defaultValue;
 
-    public SingleValueOptionParser(Function<String, T> valueParser) {
+    public SingleValueOptionParser(T defaultValue, Function<String, T> valueParser) {
         this.valueParser = valueParser;
+        this.defaultValue = defaultValue;
     }
+
 
     @Override
     public T parse(List<String> arguments, Option option) {
         int index = arguments.indexOf("-" + option.value());
+        if (index == -1) return defaultValue;
 
         if (index + 1 == arguments.size()) {
             throw new InsufficientArgumentException(option.value());

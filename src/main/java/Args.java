@@ -34,8 +34,8 @@ public class Args {
 
     private static final Map<Class<?>, OptionParser> PARSERS = ImmutableMap.of(
             boolean.class, new BooleanParser(),
-            int.class, new SingleValueOptionParser<>(Integer::valueOf),
-            String.class, new SingleValueOptionParser<>(Function.identity()));
+            int.class, new SingleValueOptionParser<>(0, Integer::valueOf),
+            String.class, new SingleValueOptionParser<>("", Function.identity()));
 
 
 }
