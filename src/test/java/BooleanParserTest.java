@@ -39,7 +39,7 @@ class BooleanParserTest {
 
     @Test
     void should_set_default_value_to_false_for_boolean_option() {
-        assertFalse((Boolean) new BooleanParser().parse(asList(), option("l")));
+        assertFalse(new BooleanParser().parse(asList(), option("l")));
     }
 
 }
