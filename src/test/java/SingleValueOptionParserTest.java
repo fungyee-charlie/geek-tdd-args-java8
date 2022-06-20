@@ -23,6 +23,12 @@ class SingleValueOptionParserTest {
     }
 
     @Test
+    void should_return_value_when_parse_single_value_option_given_option_present() {
+        assertEquals(8080, new SingleValueOptionParser<>(0, Integer::valueOf)
+                .parse(asList("-p", "8080"), option("p")));
+    }
+
+    @Test
     void should_not_accept_extra_argument_when_parse_single_value_option() {
         TooManyArgumentException e = assertThrows(TooManyArgumentException.class,
                 () -> new SingleValueOptionParser<>(0, Integer::valueOf).parse(asList("-p", "8080", "8081"), option("p")));
