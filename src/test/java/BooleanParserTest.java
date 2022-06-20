@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
+import java.util.Collections;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BooleanParserTest {
@@ -19,6 +21,11 @@ class BooleanParserTest {
                 return value;
             }
         };
+    }
+
+    @Test
+    void should_return_true_given_boolean_option_present() {
+        assertTrue(new BooleanParser().parse(singletonList("-l"), option("l")));
     }
 
     @Test

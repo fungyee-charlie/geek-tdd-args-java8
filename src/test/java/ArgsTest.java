@@ -6,20 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ArgsTest {
 
     @Test
-    void should_parse_boolean_option_given_logging_is_true() {
-        BooleanOption option = Args.parse(BooleanOption.class, "-l");
-
-        assertTrue(option.getLogging());
-    }
-
-    @Test
-    void should_parse_boolean_option_logging_is_false() {
-        BooleanOption option = Args.parse(BooleanOption.class);
-
-        assertFalse(option.getLogging());
-    }
-
-    @Test
     void should_parse_integer_option() {
         IntegerOption option = Args.parse(IntegerOption.class, "-p", "8080");
 
