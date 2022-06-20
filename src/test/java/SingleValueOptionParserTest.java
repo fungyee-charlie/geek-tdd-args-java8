@@ -3,6 +3,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.lang.annotation.Annotation;
+import java.util.function.Function;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +25,10 @@ class SingleValueOptionParserTest {
 
     @Test
     void should_return_value_when_parse_single_value_option_given_option_present() {
-        assertEquals(8080, new SingleValueOptionParser<>(0, Integer::valueOf)
+        Object parsed = new Object();
+        Function<String, Object> parse = (it) -> parsed;
+        Object whatever = new Object();
+        assertEquals(parsed, new SingleValueOptionParser<>(whatever, parse)
                 .parse(asList("-p", "8080"), option("p")));
     }
 
@@ -47,8 +51,9 @@ class SingleValueOptionParserTest {
 
     @Test
     void should_set_default_value_when_parse_single_value_option() {
-        Integer integer = new SingleValueOptionParser<>(0, Integer::valueOf)
-                .parse(asList(), option("p"));
-        assertEquals(0, integer);
+        Function<String, Object> parse = (it) -> null;
+        Object defaultValue = new Object();
+        assertEquals(defaultValue, new SingleValueOptionParser<>(defaultValue, parse)
+                .parse(asList(), option("p")));
     }
 }
