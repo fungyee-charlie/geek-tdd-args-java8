@@ -17,12 +17,17 @@ public class Args {
                     .map(it -> parseOption(arguments, it)).toArray();
 
             return (T) constructor.newInstance(values);
+        } catch (IllegalOptionException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     private static Object parseOption(List<String> arguments, Parameter parameter) {
+        if (!parameter.isAnnotationPresent(Option.class)) {
+            throw new IllegalOptionException(parameter.getName());
+        }
         Option option = parameter.getAnnotation(Option.class);
         Class<?> type = parameter.getType();
         return getOptionParser(type).parse(arguments, option);
