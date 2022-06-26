@@ -20,8 +20,8 @@ public class ArgsTest {
     void should_parse_multiple_option_2() {
         ListOptions options = Args.parse(ListOptions.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
 
-        assertEquals(new String[]{"this", "is", "a", "list"}, options.getGroup());
-        assertEquals(new int[]{1, 2, -3, 5}, options.getDecimals());
+        assertArrayEquals(new String[]{"this", "is", "a", "list"}, options.getGroup());
+        assertArrayEquals(new Integer[]{1, 2, -3, 5}, options.getDecimals());
     }
 
 
