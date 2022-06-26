@@ -5,7 +5,9 @@ class BooleanParser implements OptionParser<Boolean> {
     }
 
     public static OptionParser<Boolean> createBooleanParser() {
-        return new BooleanParser();
+        return (arguments, option) -> SingleValueOptionParser.values(arguments, option, 0)
+                .map(it -> true)
+                .orElse(false);
     }
 
     @Override
