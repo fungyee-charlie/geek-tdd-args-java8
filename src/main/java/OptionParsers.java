@@ -14,14 +14,14 @@ class OptionParsers {
 
     public static <T> OptionParser<T> unary(T defaultValue, Function<String, T> valueParser) {
         return (argument, option) -> values(argument, option, 1)
-                        .map(it -> parseValue(option, it.get(0), valueParser))
-                        .orElse(defaultValue);
+                .map(it -> parseValue(option, it.get(0), valueParser))
+                .orElse(defaultValue);
     }
 
     public static <T> OptionParser<T[]> list(IntFunction<T[]> generator, Function<String, T> valueParser) {
         return (arguments, option) -> values(arguments, option).map(it -> it.stream()
-                .map(value -> parseValue(option, value, valueParser))
-                .toArray(generator))
+                        .map(value -> parseValue(option, value, valueParser))
+                        .toArray(generator))
                 .orElse(generator.apply(0));
     }
 
@@ -35,13 +35,11 @@ class OptionParsers {
     }
 
     private static Optional<List<String>> values(List<String> arguments, Option option, int expectedSize) {
-        return values(arguments, option).map(it -> {
-            checkSize(option, expectedSize, it);
-            return it;
-        });
+        return values(arguments, option)
+                .map(it -> checkSize(option, expectedSize, it));
     }
 
-    private static void checkSize(Option option, int expectedSize, List<String> values) {
+    private static List<String> checkSize(Option option, int expectedSize, List<String> values) {
         if (values.size() < expectedSize) {
             throw new InsufficientArgumentException(option.value());
         }
@@ -49,6 +47,7 @@ class OptionParsers {
         if (values.size() > expectedSize) {
             throw new TooManyArgumentException(option.value());
         }
+        return values;
     }
 
     private static <T> T parseValue(Option option, String value, Function<String, T> valueParser) {
