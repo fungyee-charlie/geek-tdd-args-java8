@@ -123,5 +123,17 @@ class OptionParsersTest {
             assertArrayEquals(new String[]{}, result);
 
         }
+
+        @Test
+        void should_throw_exception_given_parse_value_failed() {
+            Function<String, String> parse = (it) -> {
+                throw new RuntimeException();
+            };
+
+            IllegalValueException exception = assertThrows(IllegalValueException.class, () -> OptionParsers.list(String[]::new, parse)
+                    .parse(asList("-g", "1"), option("g")));
+
+            assertEquals("g", exception.getOption());
+        }
     }
 }
