@@ -104,4 +104,16 @@ class OptionParsersTest {
         }
 
     }
+
+
+    @Nested
+    class ListParser {
+        @Test
+        void should_parse_group() {
+            String[] result = OptionParsers.list(String[]::new, String::valueOf)
+                    .parse(asList("-g", "this", "is", "a", "list"), option("g"));
+            assertArrayEquals(new String[]{"this", "is", "a", "list"}, result);
+
+        }
+    }
 }
