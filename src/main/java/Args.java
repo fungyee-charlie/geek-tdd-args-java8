@@ -40,7 +40,9 @@ public class Args {
     private static final Map<Class<?>, OptionParser> PARSERS = ImmutableMap.of(
             boolean.class, OptionParsers.bool(),
             int.class, OptionParsers.unary(0, Integer::valueOf),
-            String.class, OptionParsers.unary("", Function.identity()));
+            String.class, OptionParsers.unary("", Function.identity()),
+            String[].class, OptionParsers.list(String[]::new, String::valueOf),
+            Integer[].class, OptionParsers.list(Integer[]::new, Integer::parseInt));
 
 
 }
