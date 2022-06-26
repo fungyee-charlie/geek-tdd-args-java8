@@ -115,5 +115,13 @@ class OptionParsersTest {
             assertArrayEquals(new String[]{"this", "is", "a", "list"}, result);
 
         }
+
+        @Test
+        void should_return_default_value() {
+            String[] result = OptionParsers.list(String[]::new, String::valueOf)
+                    .parse(asList(), option("g"));
+            assertArrayEquals(new String[]{}, result);
+
+        }
     }
 }
