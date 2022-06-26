@@ -56,4 +56,15 @@ class SingleValueOptionParserTest {
         assertEquals(defaultValue, new SingleValueOptionParser<>(defaultValue, parse)
                 .parse(asList(), option("p")));
     }
+
+    @Test
+    void should_throw_illegal_value_exception() {
+        Function<String, Object> parse = (it) -> {
+            throw new RuntimeException();
+        };
+        Object defaultValue = new Object();
+        IllegalValueException exception = assertThrows(IllegalValueException.class,
+                () -> new SingleValueOptionParser<>(defaultValue, parse).parse(asList("-p", "list"), option("p")));
+        assertEquals("p", exception.getOption());
+    }
 }

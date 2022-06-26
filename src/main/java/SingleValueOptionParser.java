@@ -30,7 +30,12 @@ class SingleValueOptionParser<T> implements OptionParser<T> {
             throw new TooManyArgumentException(option.value());
         }
         String value = arguments.get(index + 1);
-        return valueParser.apply(value);
+        try {
+            return valueParser.apply(value);
+        } catch (Exception e) {
+            throw new IllegalValueException(option.value());
+        }
+
     }
 
 }
