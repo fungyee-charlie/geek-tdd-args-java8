@@ -135,5 +135,13 @@ class OptionParsersTest {
 
             assertEquals("g", exception.getOption());
         }
+
+
+        @Test
+        void should_handle_negative_decimals() {
+            Integer[] result = OptionParsers.list(Integer[]::new, Integer::parseInt).parse(asList("-d", "-1", "-2"), option("d"));
+
+            assertArrayEquals(new Integer[]{-1, -2}, result);
+        }
     }
 }
