@@ -3,7 +3,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-class SingleValueOptionParser {
+class OptionParsers {
 
     public static OptionParser<Boolean> bool() {
         return (arguments, option) -> values(arguments, option, 0)
@@ -11,7 +11,7 @@ class SingleValueOptionParser {
                 .orElse(false);
     }
 
-    public static <T> OptionParser<T> createSingleValueOptionParser(T defaultValue, Function<String, T> valueParser) {
+    public static <T> OptionParser<T> unary(T defaultValue, Function<String, T> valueParser) {
         return (argument, option) -> values(argument, option, 1)
                         .map(it -> parseValue(option, it.get(0), valueParser))
                         .orElse(defaultValue);

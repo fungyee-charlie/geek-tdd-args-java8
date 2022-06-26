@@ -8,7 +8,7 @@ import java.util.function.Function;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 
-class SingleValueOptionParserTest {
+class OptionParsersTest {
     static Option option(String value) {
         return new Option() {
             @Override
@@ -28,14 +28,14 @@ class SingleValueOptionParserTest {
         Object parsed = new Object();
         Function<String, Object> parse = (it) -> parsed;
         Object whatever = new Object();
-        assertEquals(parsed, SingleValueOptionParser.createSingleValueOptionParser(whatever, parse)
+        assertEquals(parsed, OptionParsers.unary(whatever, parse)
                 .parse(asList("-p", "8080"), option("p")));
     }
 
     @Test
     void should_not_accept_extra_argument_when_parse_single_value_option() {
         TooManyArgumentException e = assertThrows(TooManyArgumentException.class,
-                () -> SingleValueOptionParser.createSingleValueOptionParser(0, Integer::valueOf).parse(asList("-p", "8080", "8081"), option("p")));
+                () -> OptionParsers.unary(0, Integer::valueOf).parse(asList("-p", "8080", "8081"), option("p")));
         assertEquals("p", e.getOption());
     }
 
@@ -44,7 +44,7 @@ class SingleValueOptionParserTest {
     @ValueSource(strings = {"-p -l", "-p"})
     void should_not_accept_insufficient_argument_when_parse_single_value_option(String arguments) {
         InsufficientArgumentException e = assertThrows(InsufficientArgumentException.class,
-                () -> SingleValueOptionParser.createSingleValueOptionParser(0, Integer::valueOf)
+                () -> OptionParsers.unary(0, Integer::valueOf)
                         .parse(asList(arguments.split(" ")), option("p")));
         assertEquals("p", e.getOption());
     }
@@ -53,7 +53,7 @@ class SingleValueOptionParserTest {
     void should_set_default_value_when_parse_single_value_option() {
         Function<String, Object> parse = (it) -> null;
         Object defaultValue = new Object();
-        assertEquals(defaultValue, SingleValueOptionParser.createSingleValueOptionParser(defaultValue, parse)
+        assertEquals(defaultValue, OptionParsers.unary(defaultValue, parse)
                 .parse(asList(), option("p")));
     }
 
@@ -64,7 +64,7 @@ class SingleValueOptionParserTest {
         };
         Object defaultValue = new Object();
         IllegalValueException exception = assertThrows(IllegalValueException.class,
-                () -> SingleValueOptionParser.createSingleValueOptionParser(defaultValue, parse).parse(asList("-p", "list"), option("p")));
+                () -> OptionParsers.unary(defaultValue, parse).parse(asList("-p", "list"), option("p")));
         assertEquals("p", exception.getOption());
     }
 }
